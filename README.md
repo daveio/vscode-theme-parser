@@ -1,0 +1,87 @@
+# VSCode Theme Parser
+
+A command-line tool for parsing Visual Studio Code theme files and generating HTML reports with color swatches.
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+
+> ## ⚠️ IMPORTANT NOTES ⚠️
+>
+> This project uses [Bun](https://bun.sh). It is important that you use it too.
+>
+> `bun` is both a package manager and a runtime, capable of running TypeScript files directly without a separate compilation step. This package does not include TypeScript compilation, which would cause it to fail on other package managers and runtimes.
+>
+> Make sure you have Bun installed before working with this project:
+> ```bash
+> # Install Bun (macOS, Linux, or WSL)
+> curl -fsSL https://bun.sh/install | bash
+> ```
+>
+> To execute this software, use `bun start` followed by the command-line options and arguments you need.
+
+## Features
+
+- Parse both `.json` theme files and `.vsix` extensions
+- Extract and display UI colors with color swatches in a hierarchical tree view
+- Extract and display token colors with their scopes
+- Show extension metadata (name, version, author, etc.)
+- List all files contained within a `.vsix` package
+- Generate a responsive HTML report with light/dark theme toggle
+- Colorful CLI with animations and progress indicators
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/daveio/vscode-theme-parser.git
+cd vscode-theme-parser
+
+# Install dependencies
+bun install
+
+# Link for development
+bun link
+```
+
+## Usage
+
+```bash
+# Parse a JSON theme file
+bun run start parse --input path/to/theme.json --output output.html
+
+# Parse a VSIX extension
+bun run start parse --input path/to/extension.vsix --output output.html
+
+# Show the about screen
+bun run start about
+
+# Get help
+bun run start --help
+```
+
+## Report Features
+
+The generated HTML report includes:
+
+- **Hierarchical Tree View**: Color properties are organized by category (editor, terminal, etc.)
+- **Color Swatches**: Visual representation of all UI and token colors
+- **Manual Theme Toggle**: Switch between light and dark mode with one click
+- **Expanded Categories**: All color categories are expanded by default for easy browsing
+- **Monospace Category Names**: Improved readability for technical color property names
+- **Responsive Design**: Works well on both desktop and mobile devices
+
+## Documentation
+
+For detailed documentation about how the tool works, see [NOTES.md](NOTES.md).
+
+## Author
+
+Created by [Dave Williams](https://dave.io) (dave@dave.io)
+
+## License
+
+MIT
+
+---
+
+This project uses [Bun](https://bun.sh), a fast all-in-one JavaScript runtime.

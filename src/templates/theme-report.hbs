@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{theme.name}} - VSCode Theme Report</title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    html.dark {
+      color-scheme: dark;
+    }
+
+    .color-swatch {
+      width: 2rem;
+      height: 2rem;
+      display: inline-block;
+      margin-right: 0.5rem;
+      border: 1px solid #ddd;
+      vertical-align: middle;
+    }
+
+    .theme-colors {
+      margin-top: 1.5rem;
+    }
+
+    .color-tree ul {
+      list-style-type: none;
+      padding-left: 1.5rem;
+    }
+
+    .color-tree > ul {
+      padding-left: 0;
+    }
+
+    .color-tree li {
+      margin-bottom: 0.5rem;
+    }
+
+    .color-tree .category {
+      font-weight: bold;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      cursor: pointer;
+      user-select: none;
+      display: block;
+      padding: 0.4rem 0.6rem;
+      background-color: rgba(0,0,0,0.05);
+      border-radius: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .color-tree .category:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    .color-tree .category::before {
+      content: "▶";
+      display: inline-block;
+      margin-right: 0.5rem;
+      transition: transform 0.2s;
+    }
+
+    .color-tree .category.open::before {
+      transform: rotate(90deg);
+    }
+
+    .color-tree .category-content {
+      display: none;
+    }
+
+    .color-tree .category.open + .category-content {
+      display: block;
+    }
+
+    .color-item {
+      display: flex;
+      align-items: center;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #eee;
+      border-radius: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .color-info {
+      flex: 1;
+    }
+
+    .token-colors {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .file-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
+
+    .theme-toggle svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.5rem;
+    }
+
+    html.dark .theme-toggle {
+      background-color: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    html.dark .theme-toggle:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    html.dark body {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+
+    html.dark .card,
+    html.dark .bg-white {
+      background-color: #252525;
+      border-color: #333;
+    }
+
+    html.dark .color-swatch {
+      border-color: #555;
+    }
+
+    html.dark .color-tree .category {
+      background-color: rgba(255,255,255,0.05);
+    }
+
+    html.dark .color-tree .category:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    html.dark .color-item {
+      border-color: #333;
+    }
+
+    html.dark .text-gray-600,
+    html.dark .text-gray-800 {
+      color: #e0e0e0;
+    }
+
+    html.dark .bg-gray-50,
+    html.dark .bg-gray-100 {
+      background-color: #1a1a1a;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen p-4">
+  <button id="theme-toggle" class="theme-toggle bg-white shadow-md">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="sun-icon">
+      <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="moon-icon hidden">
+      <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" />
+    </svg>
+    <span class="mode-text">Dark Mode</span>
+  </button>
+
+  <div class="container mx-auto">
+    <header class="mb-8 pb-4 border-b border-gray-300">
+      <h1 class="text-4xl font-bold">{{theme.name}}</h1>
+      <p class="text-xl text-gray-600">{{theme.displayName}}</p>
+      {{#if theme.description}}
+        <p class="mt-2">{{theme.description}}</p>
+      {{/if}}
+      <div class="mt-2">
+        {{#if theme.version}}
+          <span class="font-semibold">Version:</span> {{theme.version}}
+        {{/if}}
+        {{#if theme.publisher}}
+          <span class="ml-4 font-semibold">Publisher:</span> {{theme.publisher}}
+        {{/if}}
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Package Details</h2>
+        <div class="space-y-2">
+          <p><span class="font-semibold">Package Type:</span> {{packageInfo.type}}</p>
+          <p><span class="font-semibold">Extension ID:</span> {{packageInfo.identifier}}</p>
+          <p><span class="font-semibold">Engines:</span>
+            {{#if packageInfo.engines.vscode}}
+              vscode: {{packageInfo.engines.vscode}}
+            {{/if}}
+          </p>
+          <p><span class="font-semibold">Categories:</span>
+            {{#each packageInfo.categories}}
+              <span class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-2">{{this}}</span>
+            {{/each}}
+          </p>
+        </div>
+      </section>
+
+      <section class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Theme Type</h2>
+        <div class="space-y-2">
+          <p><span class="font-semibold">UI Theme:</span> {{#if theme.type}}{{theme.type}}{{else}}Not specified{{/if}}</p>
+          <p><span class="font-semibold">Includes:</span>
+            {{#if hasColors}}Colors, {{/if}}
+            {{#if hasTokenColors}}Token Colors{{else}}No Token Colors{{/if}}
+          </p>
+        </div>
+      </section>
+    </div>
+
+    {{#if hasColors}}
+    <section class="mt-8 bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold mb-4">UI Colors</h2>
+      <p class="text-sm text-gray-600 mb-4">Click on category headers to expand/collapse sections.</p>
+
+      <div class="theme-colors color-tree">
+        <!-- Colors will be organized into tree structure by JavaScript -->
+        <div id="color-tree-container"></div>
+      </div>
+    </section>
+    {{/if}}
+
+    {{#if hasTokenColors}}
+    <section class="mt-8 bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold mb-4">Token Colors</h2>
+      <div class="token-colors">
+        {{#each theme.tokenColors}}
+        <div class="p-3 border border-gray-200 rounded">
+          <div class="mb-2">
+            {{#if this.name}}
+              <h3 class="font-semibold">{{this.name}}</h3>
+            {{else}}
+              <h3 class="font-semibold text-gray-500">Unnamed Token</h3>
+            {{/if}}
+
+            {{#if this.scope}}
+              <div class="text-sm text-gray-600">
+                <span class="font-semibold">Scope:</span>
+                {{#if this.scope.length}}
+                  {{#each this.scope}}
+                    <code class="bg-gray-100 px-1 rounded text-xs mr-1">{{this}}</code>
+                  {{/each}}
+                {{else}}
+                  <code class="bg-gray-100 px-1 rounded text-xs">{{this.scope}}</code>
+                {{/if}}
+              </div>
+            {{/if}}
+          </div>
+
+          {{#if this.settings}}
+          <div class="text-sm">
+            {{#if this.settings.foreground}}
+              <div class="flex items-center mt-1">
+                <span class="color-swatch" style="background-color: {{this.settings.foreground}}"></span>
+                <span><code>foreground: {{this.settings.foreground}}</code></span>
+              </div>
+            {{/if}}
+
+            {{#if this.settings.background}}
+              <div class="flex items-center mt-1">
+                <span class="color-swatch" style="background-color: {{this.settings.background}}"></span>
+                <span><code>background: {{this.settings.background}}</code></span>
+              </div>
+            {{/if}}
+
+            {{#if this.settings.fontStyle}}
+              <div class="mt-1">
+                <span class="font-semibold">Font Style:</span>
+                <code>{{this.settings.fontStyle}}</code>
+              </div>
+            {{/if}}
+          </div>
+          {{/if}}
+        </div>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+    {{#if packageContents.length}}
+    <section class="mt-8 bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold mb-4">Package Contents</h2>
+      <div class="file-list bg-gray-50 p-4 rounded border border-gray-200">
+        <ul class="list-disc pl-5 space-y-1">
+          {{#each packageContents}}
+            <li class="font-mono text-sm">{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </section>
+    {{/if}}
+
+    <footer class="mt-8 pt-4 border-t border-gray-300 text-center text-gray-600">
+      <p>Generated by VSCode Theme Parser on {{formatDate generatedAt}}</p>
+      <p class="text-sm mt-1">Created by <a href="https://dave.io" class="text-blue-600 hover:underline">Dave Williams</a></p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set up theme toggle
+      const htmlElement = document.documentElement;
+      const themeToggle = document.getElementById('theme-toggle');
+      const sunIcon = themeToggle.querySelector('.sun-icon');
+      const moonIcon = themeToggle.querySelector('.moon-icon');
+      const modeText = themeToggle.querySelector('.mode-text');
+
+      // Check for preferred color scheme
+      const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      // Set initial theme
+      if (prefersDarkMode) {
+        htmlElement.classList.add('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+        modeText.textContent = 'Light Mode';
+      }
+
+      themeToggle.addEventListener('click', () => {
+        if (htmlElement.classList.contains('dark')) {
+          htmlElement.classList.remove('dark');
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+          modeText.textContent = 'Dark Mode';
+        } else {
+          htmlElement.classList.add('dark');
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+          modeText.textContent = 'Light Mode';
+        }
+      });
+
+      // Organize colors into a tree structure
+      const themeColors = {{{json theme.colors}}};
+      const colorTree = {};
+
+      // Build the color tree structure
+      for (const [key, value] of Object.entries(themeColors)) {
+        const parts = key.split('.');
+        let currentLevel = colorTree;
+
+        for (let i = 0; i < parts.length - 1; i++) {
+          const part = parts[i];
+          if (!currentLevel[part]) {
+            currentLevel[part] = {};
+          }
+          currentLevel = currentLevel[part];
+        }
+
+        const lastPart = parts[parts.length - 1];
+        currentLevel[lastPart] = { value, fullKey: key };
+      }
+
+      // Render the tree
+      const container = document.getElementById('color-tree-container');
+      container.appendChild(renderColorTree(colorTree));
+
+      // Add event listeners to toggle categories
+      document.querySelectorAll('.category').forEach(category => {
+        category.addEventListener('click', function() {
+          this.classList.toggle('open');
+        });
+      });
+
+      // Expand all category branches by default
+      document.querySelectorAll('.category').forEach(category => {
+        category.classList.add('open');
+      });
+
+      // Function to render the color tree
+      function renderColorTree(node, isRoot = true) {
+        const ul = document.createElement('ul');
+
+        // Sort keys alphabetically
+        const sortedKeys = Object.keys(node).sort();
+
+        for (const key of sortedKeys) {
+          const value = node[key];
+          const li = document.createElement('li');
+
+          if (value.value !== undefined) {
+            // This is a leaf node (an actual color)
+            const colorItem = document.createElement('div');
+            colorItem.className = 'color-item';
+
+            const swatch = document.createElement('span');
+            swatch.className = 'color-swatch';
+            swatch.style.backgroundColor = value.value;
+
+            const info = document.createElement('div');
+            info.className = 'color-info';
+
+            const nameCode = document.createElement('code');
+            nameCode.className = 'text-sm';
+            nameCode.textContent = key;
+
+            const valueDiv = document.createElement('div');
+            valueDiv.className = 'text-xs text-gray-600';
+            valueDiv.textContent = value.value;
+
+            info.appendChild(nameCode);
+            info.appendChild(valueDiv);
+
+            colorItem.appendChild(swatch);
+            colorItem.appendChild(info);
+
+            li.appendChild(colorItem);
+          } else {
+            // This is a category (an intermediate node)
+            const category = document.createElement('span');
+            category.className = 'category';
+            category.textContent = key;
+
+            const categoryContent = document.createElement('div');
+            categoryContent.className = 'category-content';
+
+            const subTree = renderColorTree(value, false);
+            categoryContent.appendChild(subTree);
+
+            li.appendChild(category);
+            li.appendChild(categoryContent);
+          }
+
+          ul.appendChild(li);
+        }
+
+        return ul;
+      }
+    });
+  </script>
+</body>
+</html>
