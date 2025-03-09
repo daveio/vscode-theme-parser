@@ -8,7 +8,7 @@ export interface VSCodeTheme {
   description?: string;
   version?: string;
   publisher?: string;
-  type?: 'dark' | 'light' | 'hc';
+  type?: "dark" | "light" | "hc";
   colors?: Record<string, string>;
   tokenColors?: TokenColor[];
   semanticTokenColors?: Record<string, string | TokenSettings>;

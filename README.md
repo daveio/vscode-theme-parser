@@ -19,12 +19,12 @@ A command-line tool for parsing Visual Studio Code theme files and generating HT
 
 ## ⚠️ IMPORTANT NOTES ⚠️
 
->
 > This project uses [Bun](https://bun.sh). It is important that you use it too.
 >
 > `bun` is both a package manager and a runtime, capable of running TypeScript files directly without a separate compilation step. This package does not include TypeScript compilation, which would cause it to fail on other package managers and runtimes.
 >
 > Make sure you have Bun installed before working with this project:
+>
 > ```bash
 > # Install Bun (macOS, Linux, or WSL)
 > curl -fsSL https://bun.sh/install | bash
@@ -89,7 +89,7 @@ For detailed documentation about how the tool works, see [NOTES.md](NOTES.md).
 
 ## Author
 
-Created by [Dave Williams](https://dave.io) (dave@dave.io)
+Created by [Dave Williams](https://dave.io)
 
 ## License
 

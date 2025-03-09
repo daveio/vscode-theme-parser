@@ -31,18 +31,21 @@ The application is built with TypeScript and structured around the following com
 ### Core Modules
 
 1. **CLI Interface (`index.ts`)**
+
    - Main entry point for the application
    - Handles command-line argument parsing using Commander.js
    - Provides colorful user interface and help messages
    - Offers `--debug` and `--verbose` flags for detailed logging
 
 2. **Theme Parser (`src/parser.ts`)**
+
    - Processes theme files (both `.json` and `.vsix`)
    - Extracts colors and metadata from theme files
    - Handles the conversion from raw data to template-ready format
    - Ensures proper cleanup of temporary files even when errors occur
 
 3. **Utilities (`src/utils.ts`)**
+
    - Provides helper functions for file operations
    - Handles VSIX extraction and file listing
    - Contains logging utilities with color coding
@@ -50,6 +53,7 @@ The application is built with TypeScript and structured around the following com
    - Includes Handlebars helpers for date formatting and JSON string conversion
 
 4. **About Screen (`src/about.ts`)**
+
    - Displays an animated screen with author information
    - Uses ASCII art and colorful animations
 
