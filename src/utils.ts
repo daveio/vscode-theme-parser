@@ -4,14 +4,14 @@
 
 import * as fs from "fs-extra";
 import * as path from "path";
-import * as yauzl from "yauzl";
+import extract from "extract-zip";
 import extract from "extract-zip";
 import { promisify } from "util";
 import chalk from "chalk";
 import { createSpinner } from "nanospinner";
 import Handlebars from "handlebars";
 import type { PackageInfo, VSCodeTheme } from "./types";
-import * as xml2js from "xml2js";
+import { exec } from "child_process";
 import { exec } from "child_process";
 
 const execPromise = promisify(exec);

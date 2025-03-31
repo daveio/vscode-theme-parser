@@ -5,9 +5,9 @@
 
 import * as fs from "fs-extra";
 import * as path from "path";
-import * as yauzl from "yauzl";
 import extract from "extract-zip";
 import { promisify } from "util";
+import type { PackageInfo, TemplateData, VSCodeTheme } from "./types";
 import type { PackageInfo, TemplateData, VSCodeTheme } from "./types";
 import { createSpinner } from "nanospinner";
 import {
@@ -15,7 +15,7 @@ import {
   logDebug,
   logVerbose,
   logInfo,
-  logWarning,
+  logError,
   logError,
   extractVSIX,
   listPackageContents,
@@ -41,11 +41,11 @@ export async function processThemeFile(
 
     // Create minimal package info since we don't have a full extension
     const packageInfo: PackageInfo = {
-      name: themeData.name || path.basename(themePath, path.extname(themePath)),
-      displayName: themeData.displayName || themeData.name || "Unknown Theme",
-      description: themeData.description || "No description provided",
-      version: themeData.version || "1.0.0",
-      publisher: themeData.publisher || "Unknown",
+      name: themeData.name ?? path.basename(themePath, path.extname(themePath)),
+      displayName: (themeData.displayName ?? themeData.name) || "Unknown Theme",
+      description: themeData.description ?? "No description provided",
+      version: themeData.version ?? "1.0.0",
+      publisher: themeData.publisher ?? "Unknown",
       engines: { vscode: "*" },
       type: "Standalone Theme File",
       identifier: "standalone.theme",

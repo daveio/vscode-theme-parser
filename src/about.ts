@@ -9,7 +9,7 @@ import { createSpinner } from "nanospinner";
 /**
  * ASCII art logo for the about screen
  */
-const ASCII_LOGO = `VSCODE THEME PARSER`;
+const ASCII_LOGO = "VSCODE THEME PARSER";
 
 /**
  * Author information
@@ -44,35 +44,43 @@ export async function showAboutScreen(): Promise<void> {
     const colorFn = rainbowColors[i % rainbowColors.length];
     console.log(colorFn(logoLines[i]));
     // Short delay between lines
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 100);
+    });
   }
 
   console.log("\n");
 
   // Show a spinner with a message
   const spinner = createSpinner("Loading author information...").start();
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+  await new Promise(function (resolve) {
+    return setTimeout(resolve, 1500);
+  });
   spinner.success({ text: "Author information loaded!" });
 
   // Display author information with animation
   console.log("\n");
 
   const infoItems = [
-    `${chalk.bold("Author:")}     ${chalk.green(AUTHOR_INFO.name)}`,
-    `${chalk.bold("Email:")}      ${chalk.blue(AUTHOR_INFO.email)}`,
-    `${chalk.bold("Website:")}    ${chalk.magenta(AUTHOR_INFO.website)}`,
-    `${chalk.bold("GitHub:")}     ${chalk.cyan(AUTHOR_INFO.github)}`,
+    "" + chalk.bold("Author:") + "     " + chalk.green(AUTHOR_INFO.name),
+    "" + chalk.bold("Email:") + "      " + chalk.blue(AUTHOR_INFO.email),
+    "" + chalk.bold("Website:") + "    " + chalk.magenta(AUTHOR_INFO.website),
+    "" + chalk.bold("GitHub:") + "     " + chalk.cyan(AUTHOR_INFO.github),
   ];
 
   for (const item of infoItems) {
     console.log(item);
     // Short delay between items
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise(function (resolve) {
+      return setTimeout(resolve, 300);
+    });
   }
 
   // Display a thank you message
   console.log("\n");
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => {
+    setTimeout(resolve, 500);
+  });
 
   console.log(chalk.bold.yellow("Thank you for using VSCode Theme Parser!"));
   console.log(

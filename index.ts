@@ -11,11 +11,10 @@
 import { Command } from "commander";
 import * as path from "path";
 import chalk from "chalk";
-import { createSpinner } from "nanospinner";
 import { registerHandlebarsHelpers, logError, logInfo } from "./src/utils";
+import { registerHandlebarsHelpers, logError } from "./src/utils";
 import { processTheme } from "./src/parser";
 import { showAboutScreen } from "./src/about";
-import * as fs from "fs-extra";
 
 // Register Handlebars helpers
 registerHandlebarsHelpers();
