@@ -16,22 +16,22 @@
   },
   "description": "A tool to parse VSCode theme files and generate HTML summaries",
   "devDependencies": {
-    "@types/bun": "^1.2.8",
+    "@types/bun": "^1.2.10",
     "@types/extract-zip": "^2.0.3",
     "@types/fs-extra": "^11.0.4",
     "@types/xml2js": "^0.4.14",
     "@types/yauzl": "^2.10.3"
   },
   "engines": {
-    "bun": "~1.2.8",
+    "bun": "~1.2.10",
     "node": "~23.11.0"
   },
   "license": "MIT",
   "module": "index.ts",
   "name": "vscode-theme-parser",
-  "packageManager": "bun@1.2.8",
+  "packageManager": "bun@1.2.10",
   "peerDependencies": {
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "private": true,
   "scripts": {
