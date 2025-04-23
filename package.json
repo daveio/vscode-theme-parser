@@ -1,46 +1,45 @@
 {
-  "author": "Dave Williams <dave@dave.io> (https://dave.io)",
-  "bin": {
-    "vscode-theme-parser": "./index.ts"
-  },
-  "dependencies": {
-    "chalk": "^5.4.1",
-    "commander": "^13.1.0",
-    "extract-zip": "^2.0.1",
-    "fs-extra": "^11.3.0",
-    "handlebars": "^4.7.8",
-    "nanospinner": "^1.2.2",
-    "ora": "^8.2.0",
-    "xml2js": "^0.6.2",
-    "yauzl": "^3.2.0"
-  },
-  "description": "A tool to parse VSCode theme files and generate HTML summaries",
-  "devDependencies": {
-    "@types/bun": "^1.2.10",
-    "@types/extract-zip": "^2.0.3",
-    "@types/fs-extra": "^11.0.4",
-    "@types/xml2js": "^0.4.14",
-    "@types/yauzl": "^2.10.3"
-  },
-  "engines": {
-    "bun": "~1.2.10",
-    "node": "~23.11.0"
-  },
-  "license": "MIT",
-  "module": "index.ts",
-  "name": "vscode-theme-parser",
-  "packageManager": "bun@1.2.10",
-  "peerDependencies": {
-    "typescript": "^5.8.3"
-  },
-  "private": true,
-  "scripts": {
-    "about": "bun run index.ts about",
-    "build": "bun build ./index.ts --outdir ./dist --target node",
-    "format": "bun prettier --write .",
-    "parse": "bun run index.ts parse",
-    "start": "bun run index.ts"
-  },
-  "type": "module",
-  "version": "1.0.0"
+	"name": "vscode-theme-parser",
+	"version": "1.0.0",
+	"private": true,
+	"description": "A tool to parse VSCode theme files and generate HTML summaries",
+	"license": "MIT",
+	"author": "Dave Williams <dave@dave.io> (https://dave.io)",
+	"type": "module",
+	"module": "index.ts",
+	"bin": {
+		"vscode-theme-parser": "./index.ts"
+	},
+	"scripts": {
+		"about": "bun run index.ts about",
+		"build": "bun build ./index.ts --outdir ./dist --target node",
+		"format": "bun prettier --write .",
+		"parse": "bun run index.ts parse",
+		"start": "bun run index.ts"
+	},
+	"dependencies": {
+		"chalk": "^5.4.1",
+		"commander": "^13.1.0",
+		"extract-zip": "^2.0.1",
+		"fs-extra": "^11.3.0",
+		"handlebars": "^4.7.8",
+		"nanospinner": "^1.2.2",
+		"ora": "^8.2.0",
+		"xml2js": "^0.6.2",
+		"yauzl": "^3.2.0"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.2.10",
+		"@types/extract-zip": "^2.0.3",
+		"@types/fs-extra": "^11.0.4",
+		"@types/xml2js": "^0.4.14",
+		"@types/yauzl": "^2.10.3"
+	},
+	"peerDependencies": {
+		"typescript": "^5.8.3"
+	},
+	"packageManager": "bun@1.2.10",
+	"engines": {
+		"bun": "~1.2.10"
+	}
 }

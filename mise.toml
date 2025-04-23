@@ -5,5 +5,4 @@ THEME_PARSER_MISE_ACTIVE = 'true'
 env_file = '.env'
 
 [tools]
-bun = '1.2.9'
-node = '23.11.0'
+bun = '1.2.10'
