@@ -5,4 +5,4 @@ THEME_PARSER_MISE_ACTIVE = 'true'
 env_file = '.env'
 
 [tools]
-bun = '1.2.10'
+bun = { version = '1.2.13' }
